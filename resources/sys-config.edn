@@ -1,0 +1,12 @@
+{:http-server {:port 8888}
+
+ :http-handler {:routes [pl.enajski.scramblies.api/routes]}
+
+ :comp/http-handler {:sc/create-fn pl.enajski.scramblies.http.ring-handler/init
+                     :sc/merge     [{:from   :http-handler
+                                     :select [:routes]}]}
+
+ :comp/http-server {:sc/create-fn pl.enajski.scramblies.http.server/init
+                    :sc/refs      {:handler :comp/http-handler}
+                    :sc/merge     [{:from   :http-server
+                                    :select [:port]}]}}
